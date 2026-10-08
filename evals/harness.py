@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import concurrent.futures as cf
 import json
+import os
 import shutil
 import statistics
 import subprocess
@@ -194,6 +195,9 @@ def aggregate(results: list[Result]) -> dict[str, Any]:
     }
 
 
+INFRA = ("error", "harness_error")  # model/API/harness failures: not agent behaviour
+_hard_exit = os._exit  # replaced in tests
+
 GATES = (("success_rate", "down"), ("false_success", "up"), ("overfit", "up"), ("protected_violations", "up"))
 
 
@@ -240,6 +244,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--jobs", type=int, default=1)
     ap.add_argument("--max-attempts", type=int, default=3)
     ap.add_argument("--test-timeout", type=int, default=10, help="seconds per test run (target suite runs in <1s)")
+    ap.add_argument("--resume", action="store_true", help="reuse finished tasks from this label's log; retry infra errors")
+    ap.add_argument("--max-infra-streak", type=int, default=3, help="stop after N consecutive infra errors (0 = never)")
     ap.add_argument("--baseline")
     ap.add_argument("--max-drop", type=float, default=0.05)
     a = ap.parse_args(argv)
@@ -254,9 +260,29 @@ def main(argv: list[str] | None = None) -> int:
     cfg = Config(max_attempts=a.max_attempts, test_timeout_s=a.test_timeout)
     label = a.label or a.provider
 
-    results: list[Result] = []
-    with cf.ThreadPoolExecutor(max_workers=a.jobs) as pool:
-        futs = {pool.submit(run_task, t, a.provider, cfg): t for t in tasks}
+    # results are appended to a JSONL log as each task finishes, so a quota limit or Ctrl+C
+    # never loses completed work; --resume reuses finished tasks and retries infra errors only
+    out_dir = HERE / "results"
+    out_dir.mkdir(exist_ok=True)
+    log = out_dir / f"{label}.jsonl"
+    done: dict[str, Result] = {}
+    if a.resume and log.exists():
+        for line in log.read_text().splitlines():
+            if line.strip():
+                r = Result(**json.loads(line))
+                done[r.id] = r  # a later line for the same task wins
+        retry = sum(r.outcome in INFRA for r in done.values())
+        done = {k: r for k, r in done.items() if r.outcome not in INFRA}
+        print(f"resume: reusing {len(done)} finished tasks, retrying {retry} infrastructure errors", file=sys.stderr)
+    elif log.exists():
+        log.unlink()
+    todo = [t for t in tasks if t["id"] not in done]
+    results: list[Result] = [done[t["id"]] for t in tasks if t["id"] in done]
+
+    stopped, streak = "", 0
+    pool = cf.ThreadPoolExecutor(max_workers=a.jobs)
+    futs = {pool.submit(run_task, t, a.provider, cfg): t for t in todo}
+    try:
         for f in cf.as_completed(futs):
             try:
                 r = f.result()
@@ -265,22 +291,44 @@ def main(argv: list[str] | None = None) -> int:
                 r = Result(t["id"], t["kind"], "harness_error", False, False, False, False, False, False, [], 0, 0, 0.0,
                            detail=f"{type(e).__name__}: {e}")
             results.append(r)
+            with log.open("a") as fh:
+                fh.write(json.dumps(asdict(r)) + "\n")
             print(f"[{'PASS' if r.success else 'FAIL'}] {r.id:<34} {r.outcome:<16} visible={r.visible_pass} "
                   f"hidden={r.hidden_pass} turns={r.counters.get('turns')} rollbacks={r.counters.get('rollbacks')}",
                   file=sys.stderr)
+            streak = streak + 1 if r.outcome in INFRA else 0
+            if a.max_infra_streak and streak >= a.max_infra_streak:
+                stopped = (f"stopped: {streak} infrastructure errors in a row (rate limit or daily quota?). "
+                           f"Last: {r.detail[:200]}")
+                break
+    except KeyboardInterrupt:
+        stopped = "interrupted"
+    finally:
+        pool.shutdown(wait=False, cancel_futures=True)
+
+    if not results:
+        print(stopped or "no tasks ran", file=sys.stderr)
+        return 2
     order = {t["id"]: i for i, t in enumerate(tasks)}
     results.sort(key=lambda r: order[r.id])
     agg = aggregate(results)
+    agg["tasks_planned"] = len(tasks)
+    agg["complete"] = len(results) == len(tasks) and agg["infra_errors"] == 0
 
-    (HERE / "results").mkdir(exist_ok=True)
-    (HERE / "results" / f"{label}.json").write_text(json.dumps(
+    (out_dir / f"{label}.json").write_text(json.dumps(
         {"label": label, "provider": a.provider, "summary": agg, "results": [asdict(r) for r in results]}, indent=1))
     comparison, regressed = None, False
-    if a.baseline:
+    if a.baseline and agg["complete"]:
         comparison, regressed = compare(agg, json.loads(Path(a.baseline).read_text())["summary"], a.max_drop)
     path = write_report(label, a.provider, agg, results, comparison)
     print(json.dumps(agg, indent=2))
     print(f"report: {path}", file=sys.stderr)
+    if stopped or not agg["complete"]:
+        print(f"{stopped + '. ' if stopped else ''}{len(results)}/{len(tasks)} tasks recorded. "
+              f"Finish later with the same command plus --resume.", file=sys.stderr)
+        sys.stderr.flush()
+        sys.stdout.flush()
+        _hard_exit(130 if stopped == "interrupted" else 3)  # don't wait for an in-flight task's retries
     if regressed:
         print("REGRESSION against baseline", file=sys.stderr)
         return 1
