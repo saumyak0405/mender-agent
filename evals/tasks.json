@@ -1,0 +1,639 @@
+{
+ "seed": 0,
+ "stats": {
+  "candidates": 130,
+  "killed": 105,
+  "survived": 20,
+  "timeout": 5,
+  "error": 0
+ },
+ "tasks": [
+  {
+   "id": "ranges.binary_search.L42c24",
+   "kind": "single",
+   "file": "src/textkit/ranges.py",
+   "function": "binary_search",
+   "mutations": [
+    {
+     "line": 42,
+     "col": 24,
+     "end_col": 26,
+     "original": "//",
+     "replacement": "*"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_ranges.py"
+   ]
+  },
+  {
+   "id": "ranges.binary_search.L49c12",
+   "kind": "single",
+   "file": "src/textkit/ranges.py",
+   "function": "binary_search",
+   "mutations": [
+    {
+     "line": 49,
+     "col": 12,
+     "end_col": 13,
+     "original": "1",
+     "replacement": "0"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_ranges.py"
+   ]
+  },
+  {
+   "id": "ranges.merge_intervals.L13c28",
+   "kind": "single",
+   "file": "src/textkit/ranges.py",
+   "function": "merge_intervals",
+   "mutations": [
+    {
+     "line": 13,
+     "col": 28,
+     "end_col": 30,
+     "original": "<=",
+     "replacement": "<"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_ranges.py"
+   ]
+  },
+  {
+   "id": "ranges.merge_intervals.L13c42",
+   "kind": "single",
+   "file": "src/textkit/ranges.py",
+   "function": "merge_intervals",
+   "mutations": [
+    {
+     "line": 13,
+     "col": 42,
+     "end_col": 43,
+     "original": "1",
+     "replacement": "2"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_ranges.py"
+   ]
+  },
+  {
+   "id": "ranges.overlaps.L6c36",
+   "kind": "single",
+   "file": "src/textkit/ranges.py",
+   "function": "overlaps",
+   "mutations": [
+    {
+     "line": 6,
+     "col": 36,
+     "end_col": 37,
+     "original": "1",
+     "replacement": "2"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_ranges.py"
+   ]
+  },
+  {
+   "id": "ranges.overlaps.L6c32",
+   "kind": "single",
+   "file": "src/textkit/ranges.py",
+   "function": "overlaps",
+   "mutations": [
+    {
+     "line": 6,
+     "col": 32,
+     "end_col": 33,
+     "original": "<",
+     "replacement": "<="
+    }
+   ],
+   "hint_tests": [
+    "tests/test_ranges.py"
+   ]
+  },
+  {
+   "id": "ranges.paginate.L34c20",
+   "kind": "single",
+   "file": "src/textkit/ranges.py",
+   "function": "paginate",
+   "mutations": [
+    {
+     "line": 34,
+     "col": 20,
+     "end_col": 21,
+     "original": "1",
+     "replacement": "2"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_ranges.py"
+   ]
+  },
+  {
+   "id": "ranges.paginate.L34c18",
+   "kind": "single",
+   "file": "src/textkit/ranges.py",
+   "function": "paginate",
+   "mutations": [
+    {
+     "line": 34,
+     "col": 18,
+     "end_col": 19,
+     "original": "-",
+     "replacement": "+"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_ranges.py"
+   ]
+  },
+  {
+   "id": "ranges.total_covered.L21c19",
+   "kind": "single",
+   "file": "src/textkit/ranges.py",
+   "function": "total_covered",
+   "mutations": [
+    {
+     "line": 21,
+     "col": 19,
+     "end_col": 20,
+     "original": "-",
+     "replacement": "+"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_ranges.py"
+   ]
+  },
+  {
+   "id": "ranges.total_pages.L27c33",
+   "kind": "single",
+   "file": "src/textkit/ranges.py",
+   "function": "total_pages",
+   "mutations": [
+    {
+     "line": 27,
+     "col": 33,
+     "end_col": 34,
+     "original": "1",
+     "replacement": "2"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_ranges.py"
+   ]
+  },
+  {
+   "id": "ranges.total_pages.L27c31",
+   "kind": "single",
+   "file": "src/textkit/ranges.py",
+   "function": "total_pages",
+   "mutations": [
+    {
+     "line": 27,
+     "col": 31,
+     "end_col": 32,
+     "original": "-",
+     "replacement": "+"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_ranges.py"
+   ]
+  },
+  {
+   "id": "stats.clamp.L37c11",
+   "kind": "single",
+   "file": "src/textkit/stats.py",
+   "function": "clamp",
+   "mutations": [
+    {
+     "line": 37,
+     "col": 11,
+     "end_col": 14,
+     "original": "max",
+     "replacement": "min"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_stats.py"
+   ]
+  },
+  {
+   "id": "stats.clamp.L37c20",
+   "kind": "single",
+   "file": "src/textkit/stats.py",
+   "function": "clamp",
+   "mutations": [
+    {
+     "line": 37,
+     "col": 20,
+     "end_col": 23,
+     "original": "min",
+     "replacement": "max"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_stats.py"
+   ]
+  },
+  {
+   "id": "stats.median.L15c26",
+   "kind": "single",
+   "file": "src/textkit/stats.py",
+   "function": "median",
+   "mutations": [
+    {
+     "line": 15,
+     "col": 26,
+     "end_col": 27,
+     "original": "2",
+     "replacement": "1"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_stats.py"
+   ]
+  },
+  {
+   "id": "stats.median.L18c47",
+   "kind": "single",
+   "file": "src/textkit/stats.py",
+   "function": "median",
+   "mutations": [
+    {
+     "line": 18,
+     "col": 47,
+     "end_col": 48,
+     "original": "2",
+     "replacement": "3"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_stats.py"
+   ]
+  },
+  {
+   "id": "stats.moving_average.L47c13",
+   "kind": "single",
+   "file": "src/textkit/stats.py",
+   "function": "moving_average",
+   "mutations": [
+    {
+     "line": 47,
+     "col": 13,
+     "end_col": 15,
+     "original": ">=",
+     "replacement": ">"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_stats.py"
+   ]
+  },
+  {
+   "id": "stats.moving_average.L49c13",
+   "kind": "single",
+   "file": "src/textkit/stats.py",
+   "function": "moving_average",
+   "mutations": [
+    {
+     "line": 49,
+     "col": 13,
+     "end_col": 15,
+     "original": ">=",
+     "replacement": ">"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_stats.py"
+   ]
+  },
+  {
+   "id": "stats.percentile.L31c26",
+   "kind": "single",
+   "file": "src/textkit/stats.py",
+   "function": "percentile",
+   "mutations": [
+    {
+     "line": 31,
+     "col": 26,
+     "end_col": 27,
+     "original": "1",
+     "replacement": "2"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_stats.py"
+   ]
+  },
+  {
+   "id": "stats.percentile.L25c20",
+   "kind": "single",
+   "file": "src/textkit/stats.py",
+   "function": "percentile",
+   "mutations": [
+    {
+     "line": 25,
+     "col": 20,
+     "end_col": 23,
+     "original": "100",
+     "replacement": "101"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_stats.py"
+   ]
+  },
+  {
+   "id": "stats.variance.L57c26",
+   "kind": "single",
+   "file": "src/textkit/stats.py",
+   "function": "variance",
+   "mutations": [
+    {
+     "line": 57,
+     "col": 26,
+     "end_col": 27,
+     "original": "2",
+     "replacement": "1"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_stats.py"
+   ]
+  },
+  {
+   "id": "stats.variance.L57c18",
+   "kind": "single",
+   "file": "src/textkit/stats.py",
+   "function": "variance",
+   "mutations": [
+    {
+     "line": 57,
+     "col": 18,
+     "end_col": 19,
+     "original": "-",
+     "replacement": "+"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_stats.py"
+   ]
+  },
+  {
+   "id": "strings.count_vowels.L44c15",
+   "kind": "single",
+   "file": "src/textkit/strings.py",
+   "function": "count_vowels",
+   "mutations": [
+    {
+     "line": 44,
+     "col": 15,
+     "end_col": 16,
+     "original": "1",
+     "replacement": "0"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_strings.py"
+   ]
+  },
+  {
+   "id": "strings.count_vowels.L44c15-2",
+   "kind": "single",
+   "file": "src/textkit/strings.py",
+   "function": "count_vowels",
+   "mutations": [
+    {
+     "line": 44,
+     "col": 15,
+     "end_col": 16,
+     "original": "1",
+     "replacement": "2"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_strings.py"
+   ]
+  },
+  {
+   "id": "strings.initials.L47c43",
+   "kind": "single",
+   "file": "src/textkit/strings.py",
+   "function": "initials",
+   "mutations": [
+    {
+     "line": 47,
+     "col": 43,
+     "end_col": 44,
+     "original": "3",
+     "replacement": "2"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_strings.py"
+   ]
+  },
+  {
+   "id": "strings.initials.L50c21",
+   "kind": "single",
+   "file": "src/textkit/strings.py",
+   "function": "initials",
+   "mutations": [
+    {
+     "line": 50,
+     "col": 21,
+     "end_col": 22,
+     "original": "0",
+     "replacement": "1"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_strings.py"
+   ]
+  },
+  {
+   "id": "strings.is_palindrome.L40c29",
+   "kind": "single",
+   "file": "src/textkit/strings.py",
+   "function": "is_palindrome",
+   "mutations": [
+    {
+     "line": 40,
+     "col": 29,
+     "end_col": 30,
+     "original": "1",
+     "replacement": "0"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_strings.py"
+   ]
+  },
+  {
+   "id": "strings.is_palindrome.L40c29-2",
+   "kind": "single",
+   "file": "src/textkit/strings.py",
+   "function": "is_palindrome",
+   "mutations": [
+    {
+     "line": 40,
+     "col": 29,
+     "end_col": 30,
+     "original": "1",
+     "replacement": "2"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_strings.py"
+   ]
+  },
+  {
+   "id": "strings.truncate.L15c17",
+   "kind": "single",
+   "file": "src/textkit/strings.py",
+   "function": "truncate",
+   "mutations": [
+    {
+     "line": 15,
+     "col": 17,
+     "end_col": 19,
+     "original": "<=",
+     "replacement": "<"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_strings.py"
+   ]
+  },
+  {
+   "id": "strings.truncate.L17c24",
+   "kind": "single",
+   "file": "src/textkit/strings.py",
+   "function": "truncate",
+   "mutations": [
+    {
+     "line": 17,
+     "col": 24,
+     "end_col": 25,
+     "original": "-",
+     "replacement": "+"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_strings.py"
+   ]
+  },
+  {
+   "id": "strings.wrap_words.L28c30",
+   "kind": "single",
+   "file": "src/textkit/strings.py",
+   "function": "wrap_words",
+   "mutations": [
+    {
+     "line": 28,
+     "col": 30,
+     "end_col": 31,
+     "original": "+",
+     "replacement": "-"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_strings.py"
+   ]
+  },
+  {
+   "id": "strings.wrap_words.L27c42",
+   "kind": "single",
+   "file": "src/textkit/strings.py",
+   "function": "wrap_words",
+   "mutations": [
+    {
+     "line": 27,
+     "col": 42,
+     "end_col": 44,
+     "original": "<=",
+     "replacement": "<"
+    }
+   ],
+   "hint_tests": [
+    "tests/test_strings.py"
+   ]
+  },
+  {
+   "id": "stats.median.double",
+   "kind": "double",
+   "file": "src/textkit/stats.py",
+   "function": "median",
+   "mutations": [
+    {
+     "line": 16,
+     "col": 22,
+     "end_col": 23,
+     "original": "2",
+     "replacement": "1"
+    },
+    {
+     "line": 18,
+     "col": 47,
+     "end_col": 48,
+     "original": "2",
+     "replacement": "1"
+    }
+   ],
+   "hint_tests": []
+  },
+  {
+   "id": "strings.truncate.double",
+   "kind": "double",
+   "file": "src/textkit/strings.py",
+   "function": "truncate",
+   "mutations": [
+    {
+     "line": 15,
+     "col": 17,
+     "end_col": 19,
+     "original": "<=",
+     "replacement": "<"
+    },
+    {
+     "line": 17,
+     "col": 24,
+     "end_col": 25,
+     "original": "-",
+     "replacement": "+"
+    }
+   ],
+   "hint_tests": []
+  },
+  {
+   "id": "strings.wrap_words.double",
+   "kind": "double",
+   "file": "src/textkit/strings.py",
+   "function": "wrap_words",
+   "mutations": [
+    {
+     "line": 27,
+     "col": 28,
+     "end_col": 29,
+     "original": "1",
+     "replacement": "2"
+    },
+    {
+     "line": 28,
+     "col": 36,
+     "end_col": 37,
+     "original": "+",
+     "replacement": "-"
+    }
+   ],
+   "hint_tests": []
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+[project]
+name = "mender-agent"
+version = "0.1.0"
+description = "A sandboxed coding agent that fixes failing tests, verifies its own work, and rolls back what fails."
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Saumya Khubchandani" }]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+mender = "mender.__main__:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
