@@ -15,7 +15,8 @@ Rules:
 Tools:
 {tools}
 
-Reply with ONLY one JSON object: {{"thought": "<short reasoning>", "tool": "<name>", "args": {{...}}}}"""
+Call exactly one tool per turn. If tool calling is unavailable, reply with ONLY one JSON object:
+{{"thought": "<short reasoning>", "tool": "<name>", "args": {{...}}}}"""
 
 CODER_USER = """Task: {task}
 Failing tests: {targets}

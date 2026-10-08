@@ -32,6 +32,7 @@ class Config:
     max_turns_total: int = 60
     max_test_runs: int = 40
     test_timeout_s: int = 60        # per test run; mutated loops can hang forever
+    native_tools: bool = True       # send tools as function schemas (tool_choice=required)
     wall_clock_s: float = 900.0
 
 
@@ -153,7 +154,8 @@ class Agent:
         def count() -> None:
             s.counters["llm_calls"] += 1
         try:
-            action = call_json(self.llm, msgs, valid, retries=2, on_call=count)
+            kw = {"tools": tools.openai_tools()} if self.config.native_tools else {}
+            action = call_json(self.llm, msgs, valid, retries=2, on_call=count, **kw)
         except LLMError as e:
             if "valid JSON" not in str(e):
                 raise

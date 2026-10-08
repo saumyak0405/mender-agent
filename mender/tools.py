@@ -49,6 +49,20 @@ def catalog() -> str:
     return "\n".join(rows)
 
 
+def openai_tools() -> list[dict[str, Any]]:
+    """The same tool specs as OpenAI-style function schemas, for native tool calling."""
+    jtype = {"string": {"type": "string"}, "integer": {"type": "integer"},
+             "array": {"type": "array", "items": {"type": "string"}}}
+    out = []
+    for name, s in SPECS.items():
+        props = {k: dict(jtype[t]) for k, (t, _) in s["params"].items()}
+        required = [k for k, (_, req) in s["params"].items() if req]
+        out.append({"type": "function", "function": {
+            "name": name, "description": s["desc"],
+            "parameters": {"type": "object", "properties": props, "required": required}}})
+    return out
+
+
 def validate(tool: str, args: Any) -> str | None:
     if tool not in SPECS:
         return f"unknown tool '{tool}'; available: {', '.join(SPECS)}"

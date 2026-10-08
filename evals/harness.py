@@ -174,6 +174,8 @@ def aggregate(results: list[Result]) -> dict[str, Any]:
     return {
         "tasks": len(results),
         "success_rate": round(sum(r.success for r in results) / len(results), 3),
+        # model/API failures (rate limits, outages) are infrastructure, not agent behaviour: count them apart
+        "infra_errors": sum(r.outcome in ("error", "harness_error") for r in results),
         "repair_resolved_rate": round(len(resolved) / max(len(repair), 1), 3),
         "visible_only_rate": round(sum(r.visible_pass and r.outcome == "resolved" for r in repair) / max(len(repair), 1), 3),
         "overfit": sum(r.overfit for r in results),
